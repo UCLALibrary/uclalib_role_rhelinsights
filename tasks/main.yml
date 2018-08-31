@@ -1,0 +1,11 @@
+---
+
+- name: Ensure Red Hat Insights Client in installed
+  yum:
+    name: "{{ insights_packagename }}"
+    state: present
+
+- name: Register to the Red Hat Insights Service
+  command: >
+    {{ insights_clientname }} --register
+    creates: "{{ insights_client_conf_dir }}/.registered"

@@ -1,0 +1,7 @@
+---
+
+insights_packagename: insights-client
+
+insights_clientname: insights-client
+
+insights_client_conf_dir: /etc/insights-client
