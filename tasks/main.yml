@@ -8,4 +8,5 @@
 - name: Register to the Red Hat Insights Service
   command: >
     {{ insights_clientname }} --register
+  args:
     creates: "{{ insights_client_conf_dir }}/.registered"
