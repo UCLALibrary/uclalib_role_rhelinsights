@@ -1,12 +1,17 @@
 ---
 
-- name: Ensure Red Hat Insights Client in installed
-  yum:
-    name: "{{ insights_packagename }}"
-    state: present
+- block:
+  - name: Ensure Red Hat Insights Client is installed
+    yum:
+      name: "{{ insights_packagename }}"
+      state: present
 
-- name: Register to the Red Hat Insights Service
-  command: >
-    {{ insights_clientname }} --register
-  args:
-    creates: "{{ insights_client_conf_dir }}/.registered"
+  - name: Register to the Red Hat Insights Service
+    command: >
+      {{ insights_clientname }} --register
+    args:
+      creates: "{{ insights_client_conf_dir }}/.registered"
+  when: ansible_distribution == "RedHat" and
+        ansible_local.subscription_custom_rhel.rhn_subscriptions_consumed.subscription_1_name == "Red_Hat_Enterprise_Linux_for_Virtual_Datacenters_with_Smart_Management_Standard" and
+        ansible_local.subscription_custom_rhel.rhn_subscriptions_consumed.subscription_1_active == "True" and
+        ansible_local.insights_custom_rhel.rhn_insights_reg.reg_status == "unregistered"
