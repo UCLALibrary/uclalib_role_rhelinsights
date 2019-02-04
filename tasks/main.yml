@@ -1,5 +1,9 @@
 ---
 
+- name: Collect ansible facts
+  setup:
+    gather_subset: "all"
+
 - block:
   - name: Ensure Red Hat Insights Client is installed
     yum:
